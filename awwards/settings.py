@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from decouple import Config, Csv
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-37xr(n7qp0lmulm(z5onro@w&dh&8ve_1wi+6)skc1tqlg5+v='
+SECRET_KEY = Config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = Config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+if Config('DEBUG', cast=bool):
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = Config('HOSTS', cast=Csv())
 
 
 # Application definition
@@ -37,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Created Apps
+    'awwardsApp.apps.AwwardsappConfig'
 ]
 
 MIDDLEWARE = [
@@ -73,12 +81,26 @@ WSGI_APPLICATION = 'awwards.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# Development
+if Config('DEBUG', cast=bool):
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': Config('NAME'),
+           'USER': Config('DB_USER'),
+           'PASSWORD': Config('DB_PASSWORD'),
+           'HOST': Config('DB_HOST'),
+           'PORT': '',
+       }
+
+   }
+# Production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default= Config('DATABASE_URL')
+       )
+   }
 
 
 # Password validation
