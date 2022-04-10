@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-from decouple import Config, Csv
+from decouple import config, Csv
 import dj_database_url
 from pathlib import Path
+
+# Set Up Cloudinary
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,15 +28,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = Config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = Config('DEBUG', cast=bool)
+DEBUG = config('DEBUG', cast=bool)
 
-if Config('DEBUG', cast=bool):
+if config('DEBUG', cast=bool):
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = Config('HOSTS', cast=Csv())
+    ALLOWED_HOSTS = config('HOSTS', cast=Csv())
 
 
 # Application definition
@@ -84,14 +89,14 @@ WSGI_APPLICATION = 'awwards.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # Development
-if Config('DEBUG', cast=bool):
+if config('DEBUG', cast=bool):
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': Config('NAME'),
-           'USER': Config('DB_USER'),
-           'PASSWORD': Config('DB_PASSWORD'),
-           'HOST': Config('DB_HOST'),
+           'NAME': config('NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
            'PORT': '',
        }
 
@@ -100,7 +105,7 @@ if Config('DEBUG', cast=bool):
 else:
    DATABASES = {
        'default': dj_database_url.config(
-           default= Config('DATABASE_URL')
+           default= config('DATABASE_URL')
        )
    }
 
@@ -158,3 +163,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Cloudinary Configs
+
+cloudinary.config(
+    cloud_name=config('CLOUDNAME'),
+    api_key=config('APIKEY'),
+    api_secret=config('APISECRET')
+)
