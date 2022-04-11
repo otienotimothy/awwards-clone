@@ -21,4 +21,4 @@ class Rating(models.Model):
     usability = models.IntegerField(min=1, max=10, default=5)
     content = models.IntegerField(min=1, max=10, default=5)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_rating')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL )
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
