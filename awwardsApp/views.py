@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import render
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, LoginUserForm
 
 
 # Create your views here.
@@ -13,4 +13,6 @@ def signupUser(request):
     return render(request, 'signup.html', context)
 
 def loginUser(request):
-    return render(request, 'login.html')
+    form = LoginUserForm()
+    context = {'form': form}
+    return render(request, 'login.html', context)
