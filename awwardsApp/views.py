@@ -19,9 +19,9 @@ def signupUser(request):
         form = RegisterUserForm(request.POST)
         user = form.save(commit=False)
         if form.is_valid():
-            if User.objects.get(username=user.username.lower()).exists():
+            if User.objects.filter(username=user.username.lower()).exists():
                 messages.error(request, f'A User with the username, {user.username}, Already exists')
-            elif User.objects.get(email=user.email.lower()).exists():
+            elif User.objects.filter(email=user.email.lower()).exists():
                 messages.error(request, f'A user with the email, {user.email}, Already exists')
             else:
                 user.email = user.email.lower()
