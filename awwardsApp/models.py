@@ -17,8 +17,8 @@ class Project(models.Model):
     
 
 class Rating(models.Model):
-    design = models.IntegerField(min=1, max=10, default=5)
-    usability = models.IntegerField(min=1, max=10, default=5)
+    design = models.IntegerField()
+    usability = models.IntegerField()
     content = models.IntegerField()
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_rating')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
