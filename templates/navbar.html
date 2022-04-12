@@ -46,13 +46,17 @@
 						data-bs-toggle="dropdown"
 						aria-expanded="false"
 					>
+					{% if user.profile.avatar %}
 						<img
-							src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+							src="{{ user.profile.avatar.url }}"
 							class="rounded-circle"
 							height="25"
 							alt="Black and White Portrait of a Man"
 							loading="lazy"
 						/>
+					{% else %}
+					<i class="fa-solid fa-user"></i>
+					{% endif %}	
 					</a>
 					<ul
 						class="dropdown-menu"
