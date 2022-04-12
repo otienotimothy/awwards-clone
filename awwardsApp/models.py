@@ -12,6 +12,7 @@ class Profile(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=100)
+    projectImage = CloudinaryField('image')
     description = models.TextField()
     projectUrl = models.URLField(max_length=200)
     projectBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='projects')
