@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, EditProfileForm
 from .models import Profile
 
 
@@ -69,3 +69,22 @@ def loginUser(request):
 def logoutUser(request):
     logout(request)
     return redirect(loginUser)
+
+
+@login_required(login_url='login')
+def loadProfile(request, username):
+
+    if request.user.username != username:
+        logout(request)
+        return redirect(loginUser)
+
+    try:
+        userProfile = User.objects.get(username = username)
+        projects = userProfile.projects.all()
+    except:
+        messages.error(request, f'An Error occurred while trying to load your profile ')
+
+    form = EditProfileForm()
+
+    context = {'userProfile': userProfile, 'projects': projects, 'form':form}
+    return render(request, 'profile.html', context)
