@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+	<div class="d-flex justify-content-between mb-3">
+		<div>
+			<img src={{project.projectImage.url}} alt="" />
+		</div>
+		<div class="p-3">
+			<h3 class="text-primary"> {{project.title}} </h3>
+			<p class="my-3">
+				{{project.description}}
+			</p>
+            <p>Project URL : <span class="item-link"> {{project.projectUrl}} </span> </p>
+		</div>
+	</div>
+    <hr>
+    <div>
+        <form action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for={{form.design.auto_id}} class="form-label">
+                    Design
+                </label>
+                {{form.design}}
+            </div>
+             <div class="form-group">
+                <label for={{form.usability.auto_id}} class="form-label">
+                    Usability
+                </label>
+                {{form.usability}}
+            </div>
+             <div class="form-group">
+                <label for={{form.content.auto_id}} class="form-label">
+                    Content
+                </label>
+                {{form.content}}
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Rate
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

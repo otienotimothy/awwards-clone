@@ -1,9 +1,10 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import RegisterUserForm, LoginUserForm, EditProfileForm, UploadProjectForm
+from .forms import RegisterUserForm, LoginUserForm, EditProfileForm, UploadProjectForm, ReviewProjectForm
 from .models import Profile, Project
 
 
@@ -13,7 +14,6 @@ def index(request):
     try:
         projects = Project.objects.all()
         featureProject = projects[0]
-        print(projects)
         context = {'featured': featureProject, 'projects': projects}
         return render(request, 'index.html', context)
     except:
@@ -127,3 +127,11 @@ def uploadProject(request):
     form = UploadProjectForm()
     context = {'form': form}
     return render(request, 'upload.html', context)
+
+
+@login_required(login_url='login')
+def reviewProject(request, projectId):
+    form = ReviewProjectForm()
+    context = {'form': form}
+    return render(request, 'projectView.html', context)
+
