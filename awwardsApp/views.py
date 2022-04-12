@@ -114,6 +114,9 @@ def editProfile(request):
 @login_required(login_url='login')
 def uploadProject(request):
 
+    if not request.user.is_authenticated:
+        redirect(login)
+
     if request.method == 'POST':
         form = UploadProjectForm(request.POST, request.FILES)
         if form.is_valid():

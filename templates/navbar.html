@@ -2,13 +2,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<!-- Container wrapper -->
 	<div class="container">
-		<a class="navbar-brand mt-2 mt-lg-0" href="#">
-			<img
-				src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-				height="15"
-				alt="MDB Logo"
-				loading="lazy"
-			/>
+		<a class="navbar-brand mt-2 mt-lg-0" href="{% url 'index'  %}">
+			<h1 class="text-primary">
+				Awwards-Clone
+			</h1>
 		</a>
 		<!-- Toggle button -->
 		<button
@@ -29,13 +26,10 @@
 			<!-- Left links -->
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" href="#">Dashboard</a>
+					<a class="nav-link" href="{ url 'index' }">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Team</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Projects</a>
+					<a class="nav-link" href=" {url 'upload'} ">Upload Project</a>
 				</li>
 			</ul>
 			<!-- Left links -->
@@ -65,10 +59,7 @@
 						aria-labelledby="navbarDropdownMenuAvatar"
 					>
 						<li>
-							<a class="dropdown-item" href="#">My profile</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Settings</a>
+							<a class="dropdown-item" href=" {url 'profile' user.username } ">My profile</a>
 						</li>
 						<li>
 							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
