@@ -1,6 +1,9 @@
+from dataclasses import fields
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+
+from .models import Profile
 
 
 class RegisterUserForm(UserCreationForm):
@@ -27,3 +30,14 @@ class LoginUserForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget.attrs['class'] = 'form-control'
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar', 'bio']
+
+        widgets = {
+            'avatar': forms.FileInput(attrs={'class': 'form-control my-1'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control my-1'})
+        }
