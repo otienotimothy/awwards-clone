@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import RegisterUserForm, LoginUserForm, EditProfileForm
+from .forms import RegisterUserForm, LoginUserForm, EditProfileForm, UploadProjectForm
 from .models import Profile
 
 
@@ -88,3 +88,10 @@ def loadProfile(request, username):
 
     context = {'userProfile': userProfile, 'projects': projects, 'form':form}
     return render(request, 'profile.html', context)
+
+
+@login_required(login_url='login')
+def uploadProject(request):
+    form = UploadProjectForm()
+    context = {'form': form}
+    return render(request, 'upload.html', context)
