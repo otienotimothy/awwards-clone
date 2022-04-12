@@ -92,6 +92,17 @@ def loadProfile(request, username):
 
 @login_required(login_url='login')
 def uploadProject(request):
+
+    if request.method == 'POST':
+        form = UploadProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.projectBy_id = request.user.id
+            project.save()
+            messages.success(request, 'Project Uploaded Successfully')
+        else:
+            messages.error('An Error Occurred while trying to Upload your project')
+
     form = UploadProjectForm()
     context = {'form': form}
     return render(request, 'upload.html', context)
