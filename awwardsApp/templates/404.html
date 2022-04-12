@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="container">
+	<div
+		style="height: 100vh"
+		class="d-flex align-items-center justify-content-center"
+	>
+		<div class="w-50">
+            <h1 class="text-center text-danger mb-3">404 Error</h1>
+			<img class="w-100" src="{% static 'media/404.jpg' %}" alt="" />
+			<h2 class="text-center text-primary mt-4">
+				There are no projects to display
+			</h2>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

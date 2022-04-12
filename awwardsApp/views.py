@@ -10,12 +10,14 @@ from .models import Profile, Project
 # Create your views here.
 def index(request):
 
-    projects = Project.objects.all()
-    featureProject = projects[0]
-
-    context = {'feature': featureProject, 'projects': projects}
-
-    return render(request, 'index.html', context)
+    try:
+        projects = Project.objects.all()
+        featureProject = projects[0]
+        print(projects)
+        context = {'featured': featureProject, 'projects': projects}
+        return render(request, 'index.html', context)
+    except:
+        return render(request, '404.html')
 
 def signupUser(request):
 
