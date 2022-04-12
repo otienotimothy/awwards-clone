@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container mt-3">
+	<div class="d-flex flex-wrap align-items-center justify-content-around">
+		<img
+			class="rounded-circle z-depth-2"
+			alt="100x100"
+			width="200"
+			height="200"
+			src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+			data-holder-rendered="true"
+		/>
+		<div class="ps-md-5">
+			<div class="mt-2">
+				<p class="fs-3 d-inline-block me-5 mt-2"> {{userProfile.username}} </p>
+				<a
+					class="btn btn-primary d-inline-block me-5"
+					data-bs-toggle="modal"
+					data-bs-target="#exampleModal"
+				>
+					Edit Profile
+				</a>
+                <a
+					class="btn btn-primary d-inline-block me-5"
+				>
+					Upload Project
+				</a>
+			</div>
+			{% if userProfile.profile.bio %}
+			<div>
+				<h5>Bio</h5>
+				<p> {{userProfile.profile.bio}} </p>
+			</div>
+            {% else %}
+            <div>
+				<h5>Bio</h5>
+				<p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil molestias ea consequuntur distinctio a veniam? </p>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<hr />
+	<div>
+		<h2 class="text-center mb-4">Projects</h2>
+		<div class="d-flex justify-content-around flex-wrap">
+			{% if projects %}
+			{% for project in projevts %}
+			<div style="width: 22rem;" class="card mb-3">
+                <div class="card-header">
+                    {{project.title}}
+                </div>
+				<div class="card-body">
+					<img
+						class="z-depth-2 w-100"
+						alt="100x100"
+						src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+						data-holder-rendered="true"
+					/>
+				</div>
+				<div class="card-footer">
+					<a href="/delete/{{project.id}}/">
+						<i class="fa-solid fa-trash-can"></i>
+					</a>
+				</div>
+			</div>
+			{% endfor %}
+			{% else %}
+			<div>
+				<h2 class="text-primary">
+					You have not added any projects yet
+				</h2>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div
+	class="modal fade"
+	id="exampleModal"
+	tabindex="-1"
+	aria-labelledby="exampleModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="Close"
+					></button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group mb-3">
+						<label class="form-label text-primary" for=""> Upload Profile Pic </label>
+						{{form.avatar}}
+					</div>
+					<div class="form-group mb-3">
+						<label class="form-label text-primary" for=""> Bio </label>
+						{{form.bio}}
+					</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+						Save changes
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
