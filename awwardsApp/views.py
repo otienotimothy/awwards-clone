@@ -91,6 +91,19 @@ def loadProfile(request, username):
 
 
 @login_required(login_url='login')
+def editProfile(request):
+    
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.Files)
+        if form.is_valid():
+            form.save()
+        else:
+            messages.error(request, 'There was an Invalid Input on Edit Profile Form')
+
+    return redirect(loadProfile, username= request.user.username)
+
+
+@login_required(login_url='login')
 def uploadProject(request):
 
     if request.method == 'POST':
