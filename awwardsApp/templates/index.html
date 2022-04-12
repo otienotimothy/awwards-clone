@@ -3,7 +3,7 @@
 	<div>
 		<img
 			class="w-100 mb-3"
-			src="{{featured.projectImage}}"
+			src="{{featured.projectImage.url}}"
 			alt="feature-productImage"
 		/>
 		<h3 class="text-primary">{{featured.title}}</h3>
@@ -19,7 +19,7 @@
 		<div class="card">
 			<div class="bg-image hover-overlay ripple" data-bs-ripple-color="light">
 				<img
-					src="https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+					src={{project.projectImage.url}}
 					class="img-fluid"
 				/>
 				<a href="#!">

@@ -131,7 +131,22 @@ def uploadProject(request):
 
 @login_required(login_url='login')
 def reviewProject(request, projectId):
+
+    project = Project.objects.get(pk=projectId)
+
     form = ReviewProjectForm()
-    context = {'form': form}
+    context = {'form': form, 'project': project}
     return render(request, 'projectView.html', context)
+
+@login_required(login_url='login')
+def projectRating(request, projectId):
+
+    if request.method =='POST':
+        form = ReviewProjectForm(request.POST)
+        projectRating = form.save(commit=False)
+        projectRating.project_id = projectId
+        projectRating.user_id = request.user.id
+        projectRating.save()
+
+    return redirect(reviewProject, projectId = projectId)
 
