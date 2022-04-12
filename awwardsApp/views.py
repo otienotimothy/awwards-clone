@@ -4,12 +4,18 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import RegisterUserForm, LoginUserForm, EditProfileForm, UploadProjectForm
-from .models import Profile
+from .models import Profile, Project
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+
+    projects = Project.objects.all()
+    featureProject = projects[0]
+
+    context = {'feature': featureProject, 'projects': projects}
+
+    return render(request, 'index.html', context)
 
 def signupUser(request):
 
