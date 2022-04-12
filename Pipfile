@@ -10,6 +10,7 @@ python-decouple = "*"
 whitenoise = "*"
 dj-database-url = "*"
 cloudinary = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"
