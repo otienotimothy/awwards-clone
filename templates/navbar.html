@@ -3,8 +3,8 @@
 	<!-- Container wrapper -->
 	<div class="container">
 		<a class="navbar-brand mt-2 mt-lg-0" href="{% url 'index'  %}">
-			<h1 class="text-primary">
-				Awwards-Clone
+			<h1 class="fs-3">
+				Awwards.
 			</h1>
 		</a>
 		<!-- Toggle button -->
@@ -26,10 +26,10 @@
 			<!-- Left links -->
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" href="{ url 'index' }">Home</a>
+					<a class="nav-link" href="{% url 'index' %}">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href=" {url 'upload'} ">Upload Project</a>
+					<a class="nav-link" href=" {% url 'upload' %} ">Upload Project</a>
 				</li>
 			</ul>
 			<!-- Left links -->
@@ -59,7 +59,7 @@
 						aria-labelledby="navbarDropdownMenuAvatar"
 					>
 						<li>
-							<a class="dropdown-item" href=" {url 'profile' user.username } ">My profile</a>
+							<a class="dropdown-item" href=" {% url 'loadProfile' user.username %} ">My profile</a>
 						</li>
 						<li>
 							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
